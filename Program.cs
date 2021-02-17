@@ -142,21 +142,24 @@ namespace binfilecoder
                     while (!strmreader.EndOfStream)
                     {
                         string line = strmreader.ReadLine().Replace(" ", "");
-                        if (line.Substring(0, 1) != "#")
+                        if (line.Length > 0)
                         {
-                            char[] lineAsCharyArray = line.ToCharArray();
-                            for (int n = 0; n < lineAsCharyArray.Length; n += 1)
+                            if (line.Substring(0, 1) != "#")
                             {
-                                char ccc = lineAsCharyArray[n];
-                                if ((ccc >= 48 & ccc <= 57) |
-                                    (ccc >= 65 & ccc <= 70) |
-                                    (ccc >= 97 & ccc <= 102)
-                                    ) chars.Add((byte)ccc);
-                                else
+                                char[] lineAsCharyArray = line.ToCharArray();
+                                for (int n = 0; n < lineAsCharyArray.Length; n += 1)
                                 {
-                                    Console.WriteLine("ERROR: Line " + (lineIndex + 1).ToString() + "\n" +
-                                        "Unexpected character: '" + ccc.ToString() + "'");
-                                    return;
+                                    char ccc = lineAsCharyArray[n];
+                                    if ((ccc >= 48 & ccc <= 57) |
+                                        (ccc >= 65 & ccc <= 70) |
+                                        (ccc >= 97 & ccc <= 102)
+                                        ) chars.Add((byte)ccc);
+                                    else
+                                    {
+                                        Console.WriteLine("ERROR: Line " + (lineIndex + 1).ToString() + "\n" +
+                                            "Unexpected character: '" + ccc.ToString() + "'");
+                                        return;
+                                    }
                                 }
                             }
                         }
